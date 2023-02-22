@@ -11,13 +11,13 @@ import androidx.compose.ui.window.rememberWindowState
 
 @Composable
 fun buildWindowState() = rememberWindowState().apply {
-    size = DpSize(Dp(200f), Dp(250f))
+    size = DpSize(Dp(300f), Dp(250f))
     position = WindowPosition(100.dp, 100.dp)
 }
 
 fun main() = application {
     Window(
-        title = "Demo Of Managing State",
+        title = "Demo Of Managing List State",
         onCloseRequest = ::exitApplication,
         state = buildWindowState()
     ) {
