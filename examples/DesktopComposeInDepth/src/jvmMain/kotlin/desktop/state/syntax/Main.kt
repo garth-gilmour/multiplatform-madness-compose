@@ -1,4 +1,4 @@
-package desktop.state
+package desktop.state.syntax
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
@@ -17,7 +17,7 @@ fun buildWindowState() = rememberWindowState().apply {
 
 fun main() = application {
     Window(
-        title = "Demo Of Managing State",
+        title = "Demo Of Using Remember",
         onCloseRequest = ::exitApplication,
         state = buildWindowState()
     ) {
