@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import desktop.model.Person
@@ -23,8 +24,8 @@ fun ListStateDemo() {
         )
     }
 
-    var flintstonesList = remember {
-        mutableListOf(
+    val flintstonesList = remember {
+        mutableStateListOf(
             Person("Fred", 44),
             Person("Wilma", 43),
             Person("Pebbles", 2)
