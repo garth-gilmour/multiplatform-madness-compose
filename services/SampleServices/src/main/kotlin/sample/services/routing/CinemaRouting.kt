@@ -8,6 +8,7 @@ import io.ktor.util.pipeline.*
 
 import sample.services.db.readMoviesFile
 import sample.services.model.cinema.Genre
+import sample.services.model.cinema.MovieSummary
 
 val movies = readMoviesFile()
 
@@ -16,11 +17,14 @@ fun Application.configureCinema() {
         route("/cinema") {
             get("/") {
                 if(movies != null) {
-                    call.respond(movies)
+                    val data = movies.map {
+                        MovieSummary(it.title, it.year)
+                    }
+                    call.respond(data)
                 }
                 handleMissingMovies()
             }
-            get("/{title}") {
+            get("/title/{title}") {
                 val title = call.parameters["title"]
                 val movie = movies?.find { it.title == title }
                 if (movie == null) {
@@ -41,7 +45,10 @@ fun Application.configureCinema() {
                         status = HttpStatusCode.NotFound
                     )
                 } else {
-                    call.respond(moviesOfGenre)
+                    val data = moviesOfGenre.map {
+                        MovieSummary(it.title, it.year)
+                    }
+                    call.respond(data)
                 }
             }
         }
