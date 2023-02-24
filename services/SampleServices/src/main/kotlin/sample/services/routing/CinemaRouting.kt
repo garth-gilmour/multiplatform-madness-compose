@@ -7,6 +7,7 @@ import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
 
 import sample.services.db.readMoviesFile
+import sample.services.model.cinema.Genre
 
 val movies = readMoviesFile()
 
@@ -29,6 +30,18 @@ fun Application.configureCinema() {
                     )
                 } else {
                     call.respond(movie)
+                }
+            }
+            get("/genre/{genre}") {
+                val genre = Genre.valueOf(call.parameters["genre"] ?: "")
+                val moviesOfGenre = movies?.filter { it.genres.contains(genre) }
+                if (moviesOfGenre == null) {
+                    call.respondText(
+                        "No movies in genre $genre",
+                        status = HttpStatusCode.NotFound
+                    )
+                } else {
+                    call.respond(moviesOfGenre)
                 }
             }
         }
