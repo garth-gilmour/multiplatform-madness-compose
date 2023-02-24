@@ -3,6 +3,7 @@ package desktop.side.effects
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.onClick
@@ -22,7 +23,7 @@ fun MovieRow(movie: MovieSummary, isEven: Boolean, callback: (MovieSummary) -> U
 
     val style = TextStyle(
         color = Color.Black,
-        fontSize = 12.sp,
+        fontSize = 14.sp,
     )
     val textModifier = Modifier.padding(end = 10.dp)
     val rowModifier = Modifier
@@ -31,7 +32,16 @@ fun MovieRow(movie: MovieSummary, isEven: Boolean, callback: (MovieSummary) -> U
         .then(Modifier.onClick { callback(movie) })
 
     Row(modifier = rowModifier) {
-        Text(movie.title, style = style, modifier = textModifier)
-        Text(movie.year.toString(), style = style, modifier = textModifier)
+        Text(
+            movie.title,
+            style = style,
+            modifier = textModifier
+        )
+        Spacer(Modifier.weight(1f))
+        Text(
+            movie.year.toString(),
+            style = style,
+            modifier = textModifier
+        )
     }
 }

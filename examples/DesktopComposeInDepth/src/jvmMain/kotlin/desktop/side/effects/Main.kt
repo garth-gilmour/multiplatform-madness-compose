@@ -15,7 +15,7 @@ import io.ktor.serialization.kotlinx.json.*
 
 @Composable
 fun buildWindowState() = rememberWindowState().apply {
-    size = DpSize(Dp(700f), Dp(1000f))
+    size = DpSize(Dp(500f), Dp(800f))
     position = WindowPosition(100.dp, 100.dp)
 }
 

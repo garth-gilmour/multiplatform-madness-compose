@@ -63,7 +63,13 @@ fun MoviesApp(client: HttpClient) {
             }
             Rule()
             Row {
-                LazyColumn(modifier = Modifier.height(500.dp)) {
+                Text(
+                    text = "Movies In The Genre ${selectedGenre.value}",
+                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                )
+            }
+            Row {
+                LazyColumn(modifier = Modifier.height(400.dp)) {
                     itemsIndexed(moviesInGenre.value) { index, movie ->
                         MovieRow(movie, index % 2 == 0) {
                             val encodedTitle = it.title.replace(" ", "%20")
