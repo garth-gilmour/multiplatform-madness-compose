@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import desktop.model.cinema.Genre
 import desktop.model.cinema.Movie
 import desktop.model.cinema.MovieSummary
+import desktop.util.Header
 import desktop.util.Rule
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -41,10 +42,7 @@ fun MoviesApp(client: MoviesClient) {
     Scaffold {
         Column {
             Row {
-                Text(
-                    text = "Genres:",
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                )
+                Header("Genres")
             }
             Row {
                 LazyColumn(modifier = Modifier.height(100.dp)) {
@@ -59,10 +57,7 @@ fun MoviesApp(client: MoviesClient) {
             }
             Rule()
             Row {
-                Text(
-                    text = "Movies In The Genre ${selectedGenre.value}",
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                )
+                Header("Movies In The Genre ${selectedGenre.value}")
             }
             Row {
                 LazyColumn(modifier = Modifier.height(400.dp)) {
