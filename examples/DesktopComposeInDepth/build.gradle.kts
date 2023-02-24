@@ -31,6 +31,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-cio:${extra["ktor.version"]}")
                 implementation("io.ktor:ktor-client-content-negotiation:${extra["ktor.version"]}")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:${extra["ktor.version"]}")
+                implementation("ch.qos.logback:logback-classic:${extra["logback.version"]}")
             }
         }
         val jvmTest by getting
