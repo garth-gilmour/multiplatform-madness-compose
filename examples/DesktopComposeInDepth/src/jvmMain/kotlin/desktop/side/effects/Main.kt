@@ -8,10 +8,6 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.serialization.kotlinx.json.*
 
 @Composable
 fun buildWindowState() = rememberWindowState().apply {
@@ -19,11 +15,7 @@ fun buildWindowState() = rememberWindowState().apply {
     position = WindowPosition(100.dp, 100.dp)
 }
 
-val client = HttpClient(CIO) {
-    install(ContentNegotiation) {
-        json()
-    }
-}
+val client = MoviesClient()
 
 fun main() = application {
     Window(
