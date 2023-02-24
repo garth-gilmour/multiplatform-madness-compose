@@ -19,9 +19,9 @@ val client = MoviesClient()
 
 fun main() = application {
     Window(
-        title = "Demo Of Managing State",
+        title = "Demo of Side Effects and IO",
         onCloseRequest = ::exitApplication,
-        state = buildWindowState()
+        state = buildWindowState(),
     ) {
         MoviesApp(client)
     }

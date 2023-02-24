@@ -10,10 +10,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Header(headerText: String) {
+fun SubHeader(headerText: String) {
     Text(
         text = headerText,
-        style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp),
-        modifier = Modifier.padding(bottom = 10.dp)
+        style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+        modifier = Modifier.padding(bottom = 5.dp)
     )
 }
