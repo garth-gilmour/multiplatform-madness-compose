@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.onClick
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -22,15 +23,17 @@ import io.ktor.client.request.*
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MoviesDemo(client: HttpClient) {
+fun MoviesApp(client: HttpClient) {
     val selectedGenre = remember { mutableStateOf(Genre.values()[0]) }
-    val selectedMovies = remember { mutableStateOf(emptyList<Movie>()) }
+    val moviesInGenre = remember { mutableStateOf(emptyList<Movie>()) }
+    val selectedMovie = remember { mutableStateOf<Movie?>(null) }
+
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(selectedGenre.value) {
         val response = client.get("http://0.0.0.0:8080/cinema/genre/${selectedGenre.value}")
         val movies = response.body<List<Movie>>()
-        selectedMovies.value = movies
+        moviesInGenre.value = movies
     }
 
     Scaffold {
@@ -49,13 +52,18 @@ fun MoviesDemo(client: HttpClient) {
             Rule()
             Row {
                 LazyColumn(modifier = Modifier.height(100.dp)) {
-                    items(selectedMovies.value) { movie ->
-                        Row {
-                            Text(movie.title)
-                            Text(movie.year.toString())
-                            Text(movie.cast.toString())
+                    itemsIndexed(moviesInGenre.value) { index, movie ->
+                        MovieRow(movie, index % 2 == 0) { movie ->
+                            selectedMovie.value = movie
                         }
                     }
+                }
+            }
+            Rule()
+            Row {
+                val selected = selectedMovie.value
+                if(selected != null) {
+                    Text("Selected movie is: ${selected.title}")
                 }
             }
             /*

@@ -31,6 +31,6 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         state = buildWindowState()
     ) {
-        MoviesDemo(client)
+        MoviesApp(client)
     }
 }
