@@ -3,6 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("org.jetbrains.compose")
 }
 
@@ -24,6 +25,12 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+
+                implementation("org.jetbrains.kotlin:kotlin-reflect:${extra["kotlin.version"]}")
+                implementation("io.ktor:ktor-client-core:${extra["ktor.version"]}")
+                implementation("io.ktor:ktor-client-cio:${extra["ktor.version"]}")
+                implementation("io.ktor:ktor-client-content-negotiation:${extra["ktor.version"]}")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:${extra["ktor.version"]}")
             }
         }
         val jvmTest by getting
