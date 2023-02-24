@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client For Movies Service</title>
+    <style>
+        .padBox {
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+    <script>
+        const baseUrl = "http://0.0.0.0:8080/cinema";
+        let moviesDisplayBody;
+        let moviesDisplayTitle;
+        let selectedMovieDisplay;
+        let filterByGenreForm;
+        let filterByActorForm;
+        let createNewMovieForm;
+        let messagesDisplay;
+
+        function init() {
+            moviesDisplayBody = document.getElementById("moviesTableBody");
+            moviesDisplayTitle = document.getElementById("moviesTableTitle");
+            messagesDisplay = document.getElementById("messagesAside");
+            selectedMovieDisplay = document.getElementById("selectedMovieTable");
+            createNewMovieForm = document.createMovieForm;
+            filterByGenreForm = document.filterByGenreForm
+            filterByActorForm = document.filterByActorForm
+
+            fetchAndDisplayAllMovies();
+        }
+
+        function loadMoviesFilteredByGenre() {
+            const genre = filterByGenreForm.chosenGenre.value;
+            fetchAndDisplayMoviesByGenre(genre);
+            return false;
+        }
+
+        function loadMoviesFilteredByActor() {
+            const actor = filterByActorForm.chosenActor.value;
+            fetchAndDisplayMoviesByActor(actor);
+            return false;
+        }
+
+        function fetchAndDisplayAllMovies() {
+            fetchAndDisplayMovies(baseUrl, "All the movies");
+        }
+
+        function fetchAndDisplayMoviesByGenre(genre) {
+            const url = baseUrl + "/genre/" + genre;
+            const title = "All movies in the genre " + genre;
+            fetchAndDisplayMovies(url, title);
+        }
+
+        function fetchAndDisplayMoviesByActor(actor) {
+            let url = baseUrl + "/byCast?castMember=" + actor;
+            const title = "All movies starring " + actor;
+            fetchAndDisplayMovies(url, title);
+        }
+
+        function fetchAndDisplayMovies(url, title) {
+            function clearUI() {
+                function clearForm() {
+                    createNewMovieForm.title.value = "";
+                    createNewMovieForm.year.value = "";
+                }
+
+                function clearAllMoviesDisplay() {
+                    moviesDisplayTitle.innerHTML = "";
+                    moviesDisplayBody.innerHTML = "";
+                }
+
+                function clearSelectedMovieDisplay() {
+                    selectedMovieDisplay.innerHTML = "";
+                }
+
+                clearForm();
+                clearAllMoviesDisplay();
+                clearSelectedMovieDisplay();
+            }
+
+            clearUI();
+            fetch(url + "/")
+                .then(response => {
+                    response.json()
+                        .then(movies => displayFetchedMovies(movies, title));
+                });
+        }
+
+        function selectSingleMovie(title) {
+            fetchSingleMovie(title)
+                .then(movie => {
+                    displaySelectedMovie(movie);
+                });
+        }
+
+        function fetchSingleMovie(title) {
+            return fetch(baseUrl + "/byTitle/" + title)
+                .then(resp => resp.json());
+        }
+
+        function deleteMovie(title) {
+            fetch(baseUrl + "/byTitle/" + title, {method: 'DELETE'})
+                .then(response => {
+                    response.text().then(message => {
+                        if (response.ok) {
+                            displayMessage(message);
+                            fetchAndDisplayAllMovies();
+                        } else {
+                            displayMessage("Deletion of movie failed");
+                        }
+                    });
+                });
+        }
+
+        function createNewMovie() {
+            let course = {
+                title: createNewMovieForm.title.value,
+                year: createNewMovieForm.year.value,
+                genres: createNewMovieForm.genres.value.split(','),
+                cast: createNewMovieForm.actors.value.split(',')
+            };
+            fetch(
+                baseUrl,
+                {
+                    method: 'PUT',
+                    body: JSON.stringify(course),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            ).then(response => {
+                response.text().then(message => {
+                    if (response.ok) {
+                        displayMessage(message);
+                        fetchAndDisplayAllMovies();
+                    } else {
+                        displayMessage("Creation of movie failed");
+                    }
+                });
+            });
+            return false;
+        }
+
+        function displaySelectedMovie(movie) {
+            selectedMovieDisplay.innerHTML = "";
+            selectedMovieDisplay.appendChild(tr([
+                th("Title"),
+                td(movie.title)
+            ]));
+            selectedMovieDisplay.appendChild(tr([
+                th("Year"),
+                td(movie.year)
+            ]));
+            selectedMovieDisplay.appendChild(tr([
+                th("Genres"),
+                tdContainingUl(movie.genres)
+            ]));
+            selectedMovieDisplay.appendChild(tr([
+                th("Cast"),
+                tdContainingUl(movie.cast)
+            ]));
+        }
+
+        function displayMessage(message) {
+            function clearMessages() {
+                messagesDisplay.innerHTML = "";
+            }
+
+            clearMessages();
+            const newNode = mark([text(message)]);
+            messagesDisplay.appendChild(newNode);
+        }
+
+        function displayFetchedMovies(movies, title) {
+            moviesDisplayTitle.innerText = title;
+            movies.forEach(movie => {
+                const newRow = movieRow(movie);
+                moviesDisplayBody.appendChild(newRow);
+            });
+        }
+
+        function movieRow(movie) {
+            return tr([
+                td(movie.title),
+                td(movie.year),
+                movieDetailsLink(movie.title),
+                movieDeleteLink(movie.title)
+            ]);
+        }
+
+        function text(content) {
+            return document.createTextNode(content);
+        }
+
+        function tr(children) {
+            const node = document.createElement("tr");
+            children.forEach(child => node.appendChild(child));
+            return node;
+        }
+
+        function mark(children) {
+            const node = document.createElement("mark");
+            children.forEach(child => node.appendChild(child));
+            return node;
+        }
+
+        function box(title, text) {
+            const span = document.createElement("span");
+            span.setAttribute("class", "padBox")
+
+            const bold = document.createElement("b");
+
+            bold.appendChild(document.createTextNode(title));
+            span.appendChild(bold);
+            span.appendChild(document.createTextNode(text));
+            return span;
+        }
+
+        function th(text) {
+            const node = document.createElement("th");
+            node.appendChild(document.createTextNode(text));
+            return node;
+        }
+
+        function td(text) {
+            const node = document.createElement("td");
+            node.appendChild(document.createTextNode(text));
+            return node;
+        }
+
+        function tdContainingUl(things) {
+            const cellNode = document.createElement("td");
+            const listNode = document.createElement("ul");
+
+            for (const thing of things) {
+                const listItemNode = document.createElement("li");
+                listItemNode.appendChild(document.createTextNode(thing));
+                listNode.appendChild(listItemNode);
+            }
+
+            cellNode.appendChild(listNode);
+            return cellNode;
+        }
+
+        function movieDetailsLink(name) {
+            const node = document.createElement("td");
+            node.onclick = event => selectSingleMovie(name);
+            node.setAttribute("class", "");
+            node.appendChild(document.createTextNode("select"));
+            return node;
+        }
+
+        function movieDeleteLink(name) {
+            const node = document.createElement("td");
+            node.onclick = event => deleteMovie(name);
+            node.setAttribute("class", "");
+            node.appendChild(document.createTextNode("delete"));
+            return node;
+        }
+    </script>
+</head>
+<body onload="init()">
+<h1 class="center-block text-center">Client For Movies Service</h1>
+<div class="container">
+    <div class="row mt-4">
+        <aside class="col" id="messagesAside" class="text-center">
+            <mark>Messages will appear here</mark>
+        </aside>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <h5>Filter movies by Genre</h5>
+            <form onsubmit="return loadMoviesFilteredByGenre()" name="filterByGenreForm">
+                <label class="col-form-label">Filter by Genre</label>
+                <input type="text" value="Action" name="chosenGenre"/>
+                <button type="submit" class="btn btn-secondary">Filter</button>
+            </form>
+        </div>
+        <div class="col">
+            <h5>Filter movies by Actor</h5>
+            <form onsubmit="return loadMoviesFilteredByActor()" name="filterByActorForm">
+                <label class="col-form-label">Filter by Actor</label>
+                <input type="text" value="Jamie Foxx" name="chosenActor"/>
+                <button type="submit" class="btn btn-secondary">Filter</button>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <h5>Create a new movie</h5>
+            <form onsubmit="return createNewMovie()" name="createMovieForm">
+                <div class="form-group">
+                    <label for="movieTitle">Title:</label>
+                    <input type="text"
+                           name="title" id="movieTitle"
+                           placeholder="Movie title goes here">
+                    <label for="movieYear">Year:</label>
+                    <input type="text"
+                           name="year" id="movieYear"
+                           placeholder="Movie year goes here">
+                </div>
+                <div class="form-group">
+                    <label for="movieGenres">Genres:</label>
+                    <input type="text"
+                           name="genres" id="movieGenres"
+                           placeholder="List of genres">
+                    <label for="movieActors">Actors:</label>
+                    <input type="text"
+                           name="actors" id="movieActors"
+                           placeholder="List of actors">
+                </div>
+                <button type="submit" class="btn btn-secondary">
+                    Create
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <h3 class="col-sm-8" id="moviesTableTitle"></h3>
+    </div>
+    <div class="row mt-4">
+        <div class="col-sm-8">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th/>
+                    <th/>
+                </tr>
+                </thead>
+                <tbody id="moviesTableBody">
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <table class="table table-striped" id="selectedMovieTable">
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
