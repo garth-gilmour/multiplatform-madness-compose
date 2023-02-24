@@ -11,7 +11,6 @@ enum class Genre {
     Disaster,
     Documentary,
     Drama,
-    Erotic,
     Family,
     Fantasy,
     FoundFootage,
