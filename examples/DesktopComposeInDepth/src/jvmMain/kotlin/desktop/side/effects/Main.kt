@@ -15,7 +15,7 @@ fun buildWindowState() = rememberWindowState().apply {
     position = WindowPosition(100.dp, 100.dp)
 }
 
-val client = MoviesClient()
+val client = MoviesClient("http://0.0.0.0:8080/cinema/")
 
 fun main() = application {
     Window(
