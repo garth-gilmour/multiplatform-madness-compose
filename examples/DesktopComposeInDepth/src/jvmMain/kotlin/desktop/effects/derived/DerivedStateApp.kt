@@ -1,4 +1,4 @@
-package movie.quotes
+package desktop.effects.derived
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
@@ -28,8 +28,6 @@ fun DerivedStateApp() {
     fun EmailDisplay(value: String) {
         Text(value, style = TextStyle(fontSize = 18.sp))
     }
-
-
 
     var forename by remember { mutableStateOf("Jane") }
     var surname by remember { mutableStateOf("Smith") }

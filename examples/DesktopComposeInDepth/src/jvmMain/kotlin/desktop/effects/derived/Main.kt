@@ -1,4 +1,4 @@
-package movie.quotes
+package desktop.effects.derived
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.Dp
