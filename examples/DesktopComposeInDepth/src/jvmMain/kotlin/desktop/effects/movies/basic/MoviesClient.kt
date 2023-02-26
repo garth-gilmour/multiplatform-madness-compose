@@ -1,4 +1,4 @@
-package desktop.side.effects
+package desktop.effects.movies.basic
 
 import desktop.model.cinema.Genre
 import desktop.model.cinema.Movie

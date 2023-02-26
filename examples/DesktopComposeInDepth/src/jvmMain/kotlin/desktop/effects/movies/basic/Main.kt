@@ -1,4 +1,4 @@
-package desktop.side.effects
+package desktop.effects.movies.basic
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
