@@ -11,13 +11,13 @@ import androidx.compose.ui.window.rememberWindowState
 
 @Composable
 fun buildWindowState() = rememberWindowState().apply {
-    size = DpSize(Dp(600f), Dp(300f))
+    size = DpSize(Dp(400f), Dp(500f))
     position = WindowPosition(100.dp, 100.dp)
 }
 
 fun main() = application {
     Window(
-        title = "Disposable State Demo",
+        title = "Disposing Of Side Effects",
         onCloseRequest = ::exitApplication,
         state = buildWindowState()
     ) {
