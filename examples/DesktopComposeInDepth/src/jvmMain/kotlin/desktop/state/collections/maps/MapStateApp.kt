@@ -8,11 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import desktop.model.Person
 import desktop.util.Rule
 
 @Composable
-fun MapStateDemo() {
+fun MapStateApp() {
     val simpsonsMap = remember {
         mutableStateOf(
             mapOf(

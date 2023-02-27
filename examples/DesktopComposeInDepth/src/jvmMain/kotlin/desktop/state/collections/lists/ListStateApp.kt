@@ -12,7 +12,7 @@ import desktop.model.Person
 import desktop.util.Rule
 
 @Composable
-fun ListStateDemo() {
+fun ListStateApp() {
     val simpsonsList = remember {
         mutableStateOf(
             listOf(

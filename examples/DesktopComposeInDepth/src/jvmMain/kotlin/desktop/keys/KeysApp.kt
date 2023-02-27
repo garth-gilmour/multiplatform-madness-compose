@@ -18,7 +18,7 @@ fun EmployeeBox(employee: Employee, key: String?) {
 }
 
 @Composable
-fun KeysDemo() {
+fun KeysApp() {
     val staff = remember { mutableStateListOf(
         Employee("AB12", "Dave", IT),
         Employee("CD34", "Jane", HR),

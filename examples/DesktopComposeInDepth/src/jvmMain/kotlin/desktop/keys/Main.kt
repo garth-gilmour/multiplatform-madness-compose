@@ -21,6 +21,6 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         state = buildWindowState()
     ) {
-        KeysDemo()
+        KeysApp()
     }
 }

@@ -44,7 +44,7 @@ fun Counter(label: String, value: Int) {
 }
 
 @Composable
-fun CountersDemo() {
+fun CountersApp() {
     val counter1 = calculateCounter1()
     val counter2 = remember { calculateCounter2() }
     val counter3 = remember { mutableStateOf(calculateCounter3()) }

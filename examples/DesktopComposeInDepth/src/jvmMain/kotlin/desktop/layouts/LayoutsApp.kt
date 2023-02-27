@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LayoutsDemo() {
+fun LayoutsApp() {
     val modifier = Modifier
         .border(BorderStroke(2.dp, Color.Black))
         .then(Modifier.padding(all = 5.dp))
