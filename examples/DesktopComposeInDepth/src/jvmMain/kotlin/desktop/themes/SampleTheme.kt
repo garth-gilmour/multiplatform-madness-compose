@@ -18,7 +18,8 @@ fun SampleTheme(content: @Composable () -> Unit) {
     )
 
     val colors = MaterialTheme.colors.copy(
-        primary = Color.Green
+        primary = Color.Green,
+        background = Color.LightGray
     )
     val typography = MaterialTheme.typography.copy(
         body1 = newTextStyle
