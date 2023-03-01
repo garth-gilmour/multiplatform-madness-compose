@@ -1,3 +1,3 @@
-package movie.quotes.web
+package movie.quotes.web.model
 
 data class Quote(var source: String, var content: String)

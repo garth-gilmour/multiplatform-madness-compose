@@ -1,4 +1,4 @@
-package movie.quotes.web
+package movie.quotes.web.components
 
 import org.jetbrains.compose.web.css.*
 

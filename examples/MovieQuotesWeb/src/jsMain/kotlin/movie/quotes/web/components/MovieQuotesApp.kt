@@ -1,6 +1,8 @@
-package movie.quotes.web
+package movie.quotes.web.components
 
 import androidx.compose.runtime.*
+import movie.quotes.web.db.buildInitialQuotes
+import movie.quotes.web.model.Quote
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*

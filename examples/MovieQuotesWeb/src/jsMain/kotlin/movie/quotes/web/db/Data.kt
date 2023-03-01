@@ -1,4 +1,6 @@
-package movie.quotes.web
+package movie.quotes.web.db
+
+import movie.quotes.web.model.Quote
 
 fun buildInitialQuotes() = listOf(
     Quote("Jamis", "The mystery of life isn't a problem to solve, but a reality to experience. "),
