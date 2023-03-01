@@ -1,4 +1,4 @@
-package movie.quotes
+package movie.quotes.components
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
@@ -14,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import movie.quotes.db.buildInitialQuotes
+import movie.quotes.model.Quote
 
 @Composable
 @Preview

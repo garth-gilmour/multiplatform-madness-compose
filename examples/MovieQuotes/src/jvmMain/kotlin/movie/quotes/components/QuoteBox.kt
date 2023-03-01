@@ -1,4 +1,4 @@
-package movie.quotes
+package movie.quotes.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -10,6 +10,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.Row
+import movie.quotes.model.Quote
 
 @Composable
 fun QuoteBox(quote: Quote) {
