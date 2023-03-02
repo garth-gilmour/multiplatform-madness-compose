@@ -1,21 +1,22 @@
 package components.setup
 
 import androidx.compose.runtime.Composable
-import org.jetbrains.compose.web.dom.A
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Ol
 
 @Composable
 fun DemoMenu(callback: (String) -> Unit) {
     @Composable
     fun DemoLink(label: String, name: String) {
-        Div {
+        Li {
             A(attrs = { onClick { callback(name) } }) {
                 Text(label)
             }
         }
     }
 
-    DemoLink("Hello Compose Web", "hello")
-    DemoLink("Other Demo", "other")
+    Ol {
+        DemoLink("Hello Compose Web", "hello")
+        DemoLink("Examples of inputs", "inputs")
+    }
 }

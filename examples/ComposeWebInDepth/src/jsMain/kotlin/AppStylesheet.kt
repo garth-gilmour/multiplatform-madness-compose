@@ -17,4 +17,8 @@ object AppStylesheet : StyleSheet() {
     val contentColumn by style {
         property("width", "70%")
     }
+
+    val verticallySpaced by style {
+        paddingBottom(20.px)
+    }
 }

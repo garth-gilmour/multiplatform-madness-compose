@@ -5,5 +5,5 @@ import org.jetbrains.compose.web.dom.Text
 
 @Composable
 fun HelloDemo() {
-    Text("Hello Web Compose")
+    Text("Hello Compose For Web")
 }
