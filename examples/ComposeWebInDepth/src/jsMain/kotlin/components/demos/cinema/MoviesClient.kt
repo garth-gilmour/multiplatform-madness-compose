@@ -1,4 +1,4 @@
-package components.demos.movies
+package components.demos.cinema
 
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -7,6 +7,9 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
+import model.cinema.Genre
+import model.cinema.Movie
+import model.cinema.MovieSummary
 
 class MoviesClient(baseURL: String) {
     private val client = HttpClient(Js) {

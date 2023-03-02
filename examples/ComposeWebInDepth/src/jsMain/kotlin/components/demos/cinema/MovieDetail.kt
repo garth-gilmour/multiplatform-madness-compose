@@ -1,7 +1,11 @@
-package components.demos.movies
+package components.demos.cinema
 
 import androidx.compose.runtime.Composable
 import components.util.Header
+import components.util.SubHeader
+import model.cinema.Movie
+import org.jetbrains.compose.web.css.paddingLeft
+import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 
@@ -9,15 +13,15 @@ import org.jetbrains.compose.web.dom.Text
 fun MovieDetail(movie: Movie) {
     Div {
         Div {
-            Header("${movie.title}: ${movie.year}")
+            SubHeader("${movie.title}: ${movie.year}")
         }
         Div {
-            Header("Cast:")
+            SubHeader("Cast:")
         }
         Div {
             movie.cast.forEach { name ->
-                Div {
-                    Text(name) //, modifier = Modifier.padding(start = 20.dp))
+                Div(attrs = { style { paddingLeft(20.px) }}) {
+                    Text(name)
                 }
             }
         }

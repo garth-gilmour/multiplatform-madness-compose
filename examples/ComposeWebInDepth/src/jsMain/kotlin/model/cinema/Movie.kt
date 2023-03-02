@@ -1,4 +1,5 @@
-package components.demos.movies
+package model.cinema
+
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -1,31 +1,15 @@
-package components.demos.movies
+package components.demos.cinema
 
 import AppStylesheet.scrollableDiv
 import androidx.compose.runtime.*
 import components.util.Divider
-import components.util.Header
+import components.util.SubHeader
 import kotlinx.coroutines.launch
+import model.cinema.Genre
+import model.cinema.Movie
+import model.cinema.MovieSummary
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
-
-//val client = HttpClient(Js) {
-//    defaultRequest {
-//        url("http://0.0.0.0:8080/")
-//    }
-//}
-
-//@Composable
-//fun MoviesDemo() {
-//    val moviesText = remember { mutableStateOf("") }
-//
-//    Text("The Movies Demo")
-//
-//    LaunchedEffect(moviesText.value) {
-//        moviesText.value = client.get("cinema/").bodyAsText()
-//    }
-//
-//    Text(moviesText.value)
-//}
 
 val client = MoviesClient("http://0.0.0.0:8080/cinema/")
 
@@ -43,7 +27,7 @@ fun MoviesDemo() {
 
     Div {
         Div {
-            Header("Genres")
+            SubHeader("Genres")
         }
         Div({classes(scrollableDiv)}) {
             Genre.values().forEach { genre ->
@@ -59,7 +43,7 @@ fun MoviesDemo() {
         }
         Divider()
         Div {
-            Header("Movies In The Genre ${selectedGenre.value}")
+            SubHeader("Movies In The Genre ${selectedGenre.value}")
         }
         Div({classes(scrollableDiv)}) {
             moviesInGenre.value.forEachIndexed { index, movie ->
