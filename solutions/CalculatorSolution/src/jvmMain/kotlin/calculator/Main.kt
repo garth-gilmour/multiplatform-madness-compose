@@ -13,6 +13,6 @@ fun main() = application {
             size = DpSize(350.dp, 400.dp)
         }
     ) {
-        Calculator()
+        CalculatorApp()
     }
 }
