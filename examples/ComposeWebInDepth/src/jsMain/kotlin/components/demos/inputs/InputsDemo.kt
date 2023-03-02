@@ -1,4 +1,4 @@
-package components.demos
+package components.demos.inputs
 
 import AppStylesheet.verticallySpaced
 import androidx.compose.runtime.*

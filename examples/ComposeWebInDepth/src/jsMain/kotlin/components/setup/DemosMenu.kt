@@ -18,5 +18,6 @@ fun DemoMenu(callback: (String) -> Unit) {
     Ol {
         DemoLink("Hello Compose Web", "hello")
         DemoLink("Examples of inputs", "inputs")
+        DemoLink("Accessing REST services", "movies")
     }
 }
