@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.*
 
 @Composable
-fun Calculator() {
+fun CalculatorApp() {
     var savedTotal by remember { mutableStateOf(0) }
     var displayedTotal by remember { mutableStateOf(0) }
     var operationOngoing by remember { mutableStateOf(Operation.None) }
