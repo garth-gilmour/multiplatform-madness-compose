@@ -19,7 +19,7 @@ fun MovieRow(movie: MovieSummary, isEven: Boolean, callback: (MovieSummary) -> U
 //        .then(Modifier.onClick { callback(movie) })
 
     //Row(modifier = rowModifier) {
-    Div {
+    Div(attrs = { onClick { callback(movie) } } ) {
         Text(
             movie.title)
 //            style = style,

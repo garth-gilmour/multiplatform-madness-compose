@@ -1,5 +1,6 @@
 package components.demos.movies
 
+import AppStylesheet.scrollableDiv
 import androidx.compose.runtime.*
 import components.util.Divider
 import components.util.Header
@@ -44,7 +45,7 @@ fun MoviesDemo() {
         Div {
             Header("Genres")
         }
-        Div {
+        Div({classes(scrollableDiv)}) {
             Genre.values().forEach { genre ->
                 Div(attrs = {
                     onClick {
@@ -60,7 +61,7 @@ fun MoviesDemo() {
         Div {
             Header("Movies In The Genre ${selectedGenre.value}")
         }
-        Div {
+        Div({classes(scrollableDiv)}) {
             moviesInGenre.value.forEachIndexed { index, movie ->
                 MovieRow(movie, index % 2 == 0) {
                     scope.launch {
