@@ -13,7 +13,7 @@ import kotlin.test.assertEquals
 @OptIn(ComposeWebExperimentalTestsApi::class)
 class MovieRowTest {
     @Test
-    fun testButton() = runTest {
+    fun testMovieRow() = runTest {
         var summary by mutableStateOf(MovieSummary("Jaws", 1975))
 
         composition {

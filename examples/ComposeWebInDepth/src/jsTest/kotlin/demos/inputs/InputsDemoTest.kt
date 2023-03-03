@@ -16,7 +16,7 @@ import kotlin.test.assertEquals
 @OptIn(ComposeWebExperimentalTestsApi::class)
 class InputsDemoTest {
     @Test
-    fun testButton() = runTest {
+    fun testInputs() = runTest {
         composition {
             InputsDemo()
         }
